@@ -1,4 +1,4 @@
-# Copyright (c) 2012-2016 Sebastien Rombauts (sebastien.rombauts@gmail.com)
+# Copyright (c) 2012-2017 Sebastien Rombauts (sebastien.rombauts@gmail.com)
 
 # request for Ubuntu 14.04 Trusty VM
 sudo: true
@@ -12,117 +12,43 @@ cache:
 
 matrix:
   include:
-    # gcc default
+    # gcc C++03
     - compiler: gcc
       env:
         - CC=gcc
         - CXX=g++
-    # gcc 4.9 std=default
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env:
-        - CC=gcc-4.9
-        - CXX=g++-4.9
-    # gcc 5 std=c++03
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env:
-        - CC=gcc-5
-        - CXX=g++-5
         - CXXFLAGS="-std=c++03"
-    # gcc 5 std=c++11
+    # gcc C++11
     - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
       env:
-        - CC=gcc-5
-        - CXX=g++-5
+        - CC=gcc
+        - CXX=g++
         - CXXFLAGS="-std=c++11"
-    # gcc 5 std=c++14
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env:
-        - CC=gcc-5
-        - CXX=g++-5
-        - CXXFLAGS="-std=c++14"
-    # gcc 5 std=c++1z
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env:
-        - CC=gcc-5
-        - CXX=g++-5
-        - CXXFLAGS="-std=c++1z"
-    # gcc 6 std=c++14
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env:
-        - CXX=g++-6
-        - CXXFLAGS="-std=c++14"
-    # gcc 6 std=c++1z
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env:
-        - CC=gcc-6
-        - CXX=g++-6
-        - CXXFLAGS="-std=c++1z"
-    # gcc 6 std=c++14 all warnings, pedantic
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-6
-      env:
-        - CC=gcc-6
-        - CXX=g++-6
-        - CXXFLAGS="-std=c++14 -Wall -Wextra -pedantic"
-    # clang default
+    # clang C++03
     - compiler: clang
       env:
         - CC=clang
         - CXX=clang++
-    # os x
+        - CXXFLAGS="-std=c++03"
+    # clang C++11
+    - compiler: clang
+      env:
+        - CC=clang
+        - CXX=clang++
+        - CXXFLAGS="-std=c++11"
+    # os x libstdc++
     - compiler: clang
       os: osx
       env:
         - CC=clang
         - CXX=clang
-        - CXXFLAGS=-lstdc++
+        - CXXFLAGS=="-lstdc++"
+    # os x libc++
+    - compiler: clang
+      os: osx
+      env:
+        - CC=clang
+        - CXX=clang
 
 env:
   global:

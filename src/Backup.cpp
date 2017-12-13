@@ -9,6 +9,32 @@
  * Distributed under the MIT License (MIT) (See accompanying file LICENSE.txt
  * or copy at http://opensource.org/licenses/MIT)
  */
+
+
+ /* definition to expand macro then apply to pragma message */
+#define VALUE_TO_STRING(x) #x
+#define VALUE(x) VALUE_TO_STRING(x)
+#define VAR_NAME_VALUE(var) #var "="  VALUE(var)
+
+#if defined(_MSC_VER) 
+#pragma message(VAR_NAME_VALUE(__cplusplus))
+#pragma message(VAR_NAME_VALUE(_MSC_VER))
+#elif defined(__clang__)
+#pragma message(VAR_NAME_VALUE(__clang__))
+#pragma message(VAR_NAME_VALUE(__APPLE__))
+#pragma message(VAR_NAME_VALUE(__GXX_EXPERIMENTAL_CXX0X__))
+#pragma message(VAR_NAME_VALUE(__has_feature(cxx_noexcept)))
+#pragma message(VAR_NAME_VALUE(__has_feature(cxx_nullptr)))
+#else
+#pragma message "__cplusplus " __cplusplus
+#pragma message "__GNUC__ " __GNUC__
+#pragma message "__APPLE__ " __APPLE__
+#pragma message "__GXX_EXPERIMENTAL_CXX0X__ " __GXX_EXPERIMENTAL_CXX0X__
+#pragma message "__has_feature(cxx_noexcept) " __has_feature(cxx_noexcept)
+#pragma message "__has_feature(cxx_nullptr) " __has_feature(cxx_nullptr)
+#endif
+
+
 #include <SQLiteCpp/Backup.h>
 
 #include <SQLiteCpp/Exception.h>
